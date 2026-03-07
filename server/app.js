@@ -1,17 +1,18 @@
-const express = require("express");
-const morgan = require("morgan");
-const cookieParser = require("cookie-parser");
-const cors = require("cors");
-const mongoose = require("mongoose")
+import express from "express";
+import morgan from "morgan";
+import cookieParser from "cookie-parser";
+import cors from "cors";
+import mongoose from "mongoose"
 const PORT = 5005;
 
 // STATIC DATA
 // Devs Team - Import the provided files with JSON data of students and cohorts here:
 // ...
-const cohorts = require("./cohorts.json")
-const students = require("./students.json");
-const studentModel = require("./models/student.model");
-const cohortModel = require("./models/cohort.model")
+// const cohorts = require("./cohorts.json")
+// const students = require("./students.json");
+import studentModel from "./models/student.model.js";
+import cohortModel from "./models/cohort.model.js"
+import authRoutes from "./routes/auth.routes.js"
 
 // INITIALIZE EXPRESS APP - https://expressjs.com/en/4x/api.html#express
 const app = express();
@@ -27,6 +28,7 @@ app.use(morgan("dev"));
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use("/auth", authRoutes)
 
 mongoose.connect('mongodb://localhost:27017/cohort-tools-api').
 then(()=>{
@@ -194,6 +196,8 @@ app.use((err, req, res, next) => {
  
   res.status(500).json({ message: "Internal server error" });          
 });              
+
+
 
 
 // START SERVER
