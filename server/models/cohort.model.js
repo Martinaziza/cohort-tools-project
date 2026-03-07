@@ -1,4 +1,4 @@
-const {Schema, model} = require("mongoose");
+import {Schema, model} from "mongoose";
 
 const cohortSchema = new Schema(
     {
@@ -9,7 +9,7 @@ const cohortSchema = new Schema(
         },
         cohortName: {
             type: String,
-            required: true,   
+            required: true,
         },
         program: {
             type: String,
@@ -35,7 +35,7 @@ const cohortSchema = new Schema(
             default: false,
         },
         programManager: {
-            type: String, 
+            type: String,
             required: true,
         },
         leadTeacher: {
@@ -51,4 +51,4 @@ const cohortSchema = new Schema(
 
 const cohortModel = model('cohort', cohortSchema)
 
-module.exports = cohortModel
+export default cohortModel
